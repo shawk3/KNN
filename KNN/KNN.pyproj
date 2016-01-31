@@ -25,6 +25,9 @@
     <Compile Include="DataOpener.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DecissionTree.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="KNN.py">
       <SubType>Code</SubType>
     </Compile>
@@ -34,6 +37,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="car.txt" />
+    <Content Include="KNNscript.txt" />
+    <Content Include="lenses.txt" />
+    <Content Include="voting.txt" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
