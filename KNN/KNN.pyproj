@@ -31,12 +31,19 @@
     <Compile Include="KNN.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NeuralNetwork.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Neuron.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="script.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="car.txt" />
+    <Content Include="DecissionTreeScript.txt" />
     <Content Include="KNNscript.txt" />
     <Content Include="lenses.txt" />
     <Content Include="voting.txt" />
