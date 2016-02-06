@@ -1,3 +1,5 @@
+import numpy as np
+
 class Neuron(object):
     """description of class"""
 
@@ -13,8 +15,13 @@ class Neuron(object):
     def evaluate(self, x):
         inputs = [1]
         inputs.extend(x)
-        if len(x) == len(self.inputWeights):
-            return None
+        if len(inputs) == len(self.inputWeights):
+            value = np.dot(inputs, self.inputWeights)
+            if value > 1:
+                return 1
+            else:
+                return 0
+        return None
         
 
 

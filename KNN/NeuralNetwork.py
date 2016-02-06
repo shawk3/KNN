@@ -17,7 +17,6 @@ class NeuralNetwork(object):
                 weights.append(np.random.rand())
             neuron = Neuron.Neuron(weights)
             neurons.append(neuron)
-        print (neurons)
         return neurons
 
     def addNewLayer(self, numNeurons):
@@ -26,7 +25,17 @@ class NeuralNetwork(object):
         self.neurons[self.currentLayer] =  self.createLayer(numNeurons, n)
 
     def run(self, x):
-        return 0
+        inputs = list(x)
+        for i in range(1,self.currentLayer+1):
+            print(i)
+            inputs = self.runLayer(i,inputs)
+        return inputs
+
+    def runLayer(self, layer, x):
+        outputs = []
+        for n in (self.neurons[layer]):
+            outputs.append(n.evaluate(x))
+        return outputs
 
     def train(self, data):
         return 0
