@@ -27,7 +27,6 @@ class NeuralNetwork(object):
     def run(self, x):
         inputs = list(x)
         for i in range(1,self.currentLayer+1):
-            print(i)
             inputs = self.runLayer(i,inputs)
         return inputs
 

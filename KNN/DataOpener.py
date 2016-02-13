@@ -7,9 +7,9 @@ class DataOpener(object):
         data = [[]]
         target = []
         with open(name, 'r') as f:
-            data[0] = f.readline().split(',')
-            for i,line in enumerate(f):
-                datum = line.split(',')
+            data[0] = f.readline().rstrip().split(',')
+            for line in f:
+                datum = line.rstrip().split(',')
                 data.append(datum)
 
         return data
@@ -28,7 +28,6 @@ class DataOpener(object):
                 x[i] = n
 
     def set3Categories(self, x, l, h, v1, v2, v3):
-        #not yet implemented
         y = list(x)
         for i, xi in enumerate(x):
             if xi <= l:
