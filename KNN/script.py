@@ -18,7 +18,7 @@ if dsetindex == 2:
     for i in range(count):
         nn = NN.NeuralNetwork(5,4)
         nn.addNewLayer(3)
-        print(nn.run(iris.data[1]))
+        print(nn.test(iris.data, iris.target))
 
 if dsetindex == 1:
     data = np.array(do.read_file("indianDiabetes.txt"))

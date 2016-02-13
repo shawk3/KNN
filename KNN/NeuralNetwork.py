@@ -39,7 +39,26 @@ class NeuralNetwork(object):
     def train(self, data):
         return 0
 
-    def test(self, data):
-        run(data[0])
-        return 0
+    def predict(self, data):
+        outputs = self.run(data)
+        maxindex = outputs.index(max(outputs))
+        return maxindex
+
+    def unique(self, data):
+        map = {}
+        i = 0
+        for d in data:
+            if d not in map:
+                map[i] = d
+                i = i + 1
+        return map
+
+    def test(self, data, targets):
+        targetMap = self.unique(targets)
+        count = 0
+        for i,d in enumerate(data):
+            prediction = self.predict(d)
+            if targets[i] == targetMap[prediction]:
+                count = count + 1
+        return count / len(data)
 

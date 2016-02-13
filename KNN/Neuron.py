@@ -5,6 +5,7 @@ class Neuron(object):
 
     def __init__(self, iw):
         self.inputWeights = iw
+        self.lastoutput = 0
 
     def __str__(self):
         return 'Weights:' + str(self.inputWeights)
@@ -17,7 +18,8 @@ class Neuron(object):
         inputs.extend(x)
         if len(inputs) == len(self.inputWeights):
             value = np.dot(inputs, self.inputWeights)
-            return (1/(1 + np.exp(-value)))
+            self.lastoutput = (1/(1 + np.exp(-value)))
+            return  self.lastoutput
         return None
         
 
