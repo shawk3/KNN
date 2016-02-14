@@ -17,7 +17,7 @@ class Neuron(object):
         inputs = [1]
         inputs.extend(x)
         if len(inputs) == len(self.inputWeights):
-            value = np.dot(inputs, self.inputWeights)
+            value = np.inner(inputs, self.inputWeights)
             self.lastoutput = (1/(1 + np.exp(-value)))
             return  self.lastoutput
         return None

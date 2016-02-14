@@ -5,7 +5,7 @@ import numpy as np
 
 
 do = DO.DataOpener()
-dsetindex = int(input('To analyze cars enter 1. To analyze iris, enter 2: '))
+dsetindex = int(input('To analyze diabetes enter 1. To analyze iris, enter 2: '))
 count = int(input('How many times would you like to run the test: '))
 
 if dsetindex == 2:
@@ -21,7 +21,7 @@ if dsetindex == 2:
         print(nn.test(iris.data, iris.target))
 
 if dsetindex == 1:
-    data = np.array(do.read_file("indianDiabetes.txt"))
+    data = np.array(do.read_file("indianDiabetes.txt")).astype(np.float16)
     data[: , 0] = do.normalize(data[:,0])
     data[: , 1] = do.normalize(data[:,1])
     data[: , 2] = do.normalize(data[:,2])
@@ -32,9 +32,9 @@ if dsetindex == 1:
     data[: , 7] = do.normalize(data[:,7])
 
     for i in range(count):
-        nn = NN.NeuralNetwork(5,8)
-        nn.addNewLayer(2)
-        print(data[0,0:8])
-        print(nn.run(data[0,0:8]))
+        nn = NN.NeuralNetwork(2,8)
+        #nn.addNewLayer(2)
+        #print(data[0,0:8])
+        print(nn.test(data[:,0:8], data[:, 8]))
 
-    print(data)
+    #print(data)
