@@ -2,11 +2,15 @@ import NeuralNetwork as NN
 from sklearn import datasets
 import DataOpener as DO
 import numpy as np
+from sklearn.cross_validation import train_test_split as tts
+
 
 
 do = DO.DataOpener()
 dsetindex = int(input('To analyze diabetes enter 1. To analyze iris, enter 2: '))
 count = int(input('How many times would you like to run the test: '))
+ts = float (input('What test size percentage(eg. 0.25): '))
+
 
 if dsetindex == 2:
     iris = datasets.load_iris()
@@ -15,10 +19,15 @@ if dsetindex == 2:
     iris.data[: , 2] = do.normalize(iris.data[:,2])
     iris.data[: , 3] = do.normalize(iris.data[:,3])
 
+    
+
     for i in range(count):
-        nn = NN.NeuralNetwork(5,4)
+        xtrain, xtest, ytrain, ytest = tts(iris.data, iris.target, test_size= ts)
+        xtrain, xvalidate, ytrain, yvalidate = tts(xtrain, ytrain, test_size= ts)
+        nn = NN.NeuralNetwork(3,4,.05)
         nn.addNewLayer(3)
-        print(nn.test(iris.data, iris.target))
+        print(nn.train(xtrain, ytrain, xvalidate, yvalidate))
+        print(nn.test(xtest, ytest))
 
 if dsetindex == 1:
     data = np.array(do.read_file("indianDiabetes.txt")).astype(np.float16)
@@ -32,9 +41,18 @@ if dsetindex == 1:
     data[: , 7] = do.normalize(data[:,7])
 
     for i in range(count):
-        nn = NN.NeuralNetwork(2,8)
-        #nn.addNewLayer(2)
+        xtrain, xtest, ytrain, ytest = tts(data[:,0:8], data[:, 8], test_size= ts)
+        xtrain, xvalidate, ytrain, yvalidate = tts(xtrain, ytrain, test_size= ts)
+        nn = NN.NeuralNetwork(10,8,.2)
+        nn.addNewLayer(5)
+        nn.addNewLayer(2)
         #print(data[0,0:8])
-        print(nn.test(data[:,0:8], data[:, 8]))
-
+        print(nn.train(xtrain, ytrain, xvalidate, yvalidate))
+        print(nn.test(xtest, ytest))
     #print(data)
+
+if dsetindex == 3:
+    nn = NN.NeuralNetwork(2,2,.9)
+    nn.addNewLayer(2)
+    print(nn.train([[.2,-.1],[.3, .2],[.1,-.2],[-.1,.2]], ['A','B','A','B'],[[.3,-.1],[.3, 0],[.1,-.3]], ['A','B','A'] ))
+    print(nn.test([[-.2,.1],[.3, -.2],[.1,-.2]], ['B','A','A']))
