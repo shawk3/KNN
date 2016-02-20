@@ -38,12 +38,28 @@ class NeuralNetwork(object):
             outputs.append(n.evaluate(x))
         return outputs
 
+    def updateWeights(self):
+        for layer in self.neurons.values():
+            for neuron in layer:
+                neuron.update()
+
+    def saveWeights(self):
+        for layer in self.neurons.values():
+            for neuron in layer:
+                neuron.saveWeight()
+
+    def saveWeights(self):
+        for layer in self.neurons.values():
+            for neuron in layer:
+                neuron.saveWeight()
+
     def train(self, data, targets, validata, valitarget):
         oldscore = 0
         newscore = self.test(validata, valitarget)
+        bestscore = abs(newscore)
         targetMap = self.unique(targets)
         k = 0
-        while not newscore == 1 and k < 2:
+        while not newscore == 1 and k < 150:
             count = 0
             for i,d in enumerate(data):
                 outputs = self.run(d)
@@ -57,12 +73,18 @@ class NeuralNetwork(object):
                 if targets[i] == targetMap[prediction]:
                     count = count + 1
             totalerror = 1-(count / len(data))
+            print(totalerror)
             oldscore = np.abs(newscore)
+            self.updateWeights()
             newscore = self.test(validata, valitarget)
-            if oldscore >= newscore:
+            if newscore > bestscore:
+                bestscore = np.abs(newscore)
+                self.saveWeights()
+            elif oldscore >= newscore:
                 k = k+1
             else:
                 k = 0
+        self.updateWeights()
         return 
 
     def assignerror(self, layer):

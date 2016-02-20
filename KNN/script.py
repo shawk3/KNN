@@ -10,6 +10,7 @@ do = DO.DataOpener()
 dsetindex = int(input('To analyze diabetes enter 1. To analyze iris, enter 2: '))
 count = int(input('How many times would you like to run the test: '))
 ts = float (input('What test size percentage(eg. 0.25): '))
+r = float(input('What learning rate? '))
 
 
 if dsetindex == 2:
@@ -24,7 +25,7 @@ if dsetindex == 2:
     for i in range(count):
         xtrain, xtest, ytrain, ytest = tts(iris.data, iris.target, test_size= ts)
         xtrain, xvalidate, ytrain, yvalidate = tts(xtrain, ytrain, test_size= ts)
-        nn = NN.NeuralNetwork(3,4,.05)
+        nn = NN.NeuralNetwork(3,4,r)
         nn.addNewLayer(3)
         print(nn.train(xtrain, ytrain, xvalidate, yvalidate))
         print(nn.test(xtest, ytest))
@@ -43,7 +44,7 @@ if dsetindex == 1:
     for i in range(count):
         xtrain, xtest, ytrain, ytest = tts(data[:,0:8], data[:, 8], test_size= ts)
         xtrain, xvalidate, ytrain, yvalidate = tts(xtrain, ytrain, test_size= ts)
-        nn = NN.NeuralNetwork(10,8,.2)
+        nn = NN.NeuralNetwork(10,8,r)
         nn.addNewLayer(5)
         nn.addNewLayer(2)
         #print(data[0,0:8])
