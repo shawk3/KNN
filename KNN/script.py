@@ -3,6 +3,8 @@ from sklearn import datasets
 import DataOpener as DO
 import numpy as np
 from sklearn.cross_validation import train_test_split as tts
+import matplotlib.pyplot as plt
+
 
 
 
@@ -27,8 +29,8 @@ if dsetindex == 2:
         xtrain, xvalidate, ytrain, yvalidate = tts(xtrain, ytrain, test_size= ts)
         nn = NN.NeuralNetwork(3,4,r)
         nn.addNewLayer(3)
-        print(nn.train(xtrain, ytrain, xvalidate, yvalidate))
-        print(nn.test(xtest, ytest))
+        scores = nn.train(xtrain, ytrain, xvalidate, yvalidate)
+        print('Test: ', nn.test(xtest, ytest))
 
 if dsetindex == 1:
     data = np.array(do.read_file("indianDiabetes.txt")).astype(np.float16)
@@ -48,12 +50,18 @@ if dsetindex == 1:
         nn.addNewLayer(5)
         nn.addNewLayer(2)
         #print(data[0,0:8])
-        print(nn.train(xtrain, ytrain, xvalidate, yvalidate))
+        scores = nn.train(xtrain, ytrain, xvalidate, yvalidate)
         print(nn.test(xtest, ytest))
     #print(data)
 
 if dsetindex == 3:
-    nn = NN.NeuralNetwork(2,2,.9)
+    nn = NN.NeuralNetwork(2,2,1)
     nn.addNewLayer(2)
-    print(nn.train([[.2,-.1],[.3, .2],[.1,-.2],[-.1,.2]], ['A','B','A','B'],[[.3,-.1],[.3, 0],[.1,-.3]], ['A','B','A'] ))
+    scores = nn.train([[.2,-.1],[.3, .2],[.1,-.2],[-.1,.2]], ['A','B','A','B'],[[.3,-.1],[.3, 0],[.1,-.3]], ['A','B','A'] )
     print(nn.test([[-.2,.1],[.3, -.2],[.1,-.2]], ['B','A','A']))
+
+
+x = plt.plot(scores[0], 'b', scores[1], 'g')
+plt.ylabel('some numbers')
+plt.legend(x, ['Validation', 'Training'])
+plt.show()

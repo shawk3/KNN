@@ -20,7 +20,7 @@ class Neuron(object):
             self.inputWeights[i] = w- self.learningRate*self.error*self.lastinputs[i]
         self.error = 0
         if self.learningRate >=.05:
-            self.learningRate = self.learningRate*.95
+            self.learningRate = self.learningRate*.97
 
     def saveWeight(self):
         self.bestWeights = list(self.inputWeights)
@@ -42,12 +42,12 @@ class Neuron(object):
     def getLastOutput(self):
         return self.lastoutput
 
-    def defineOutError(self, t):
+    def defineOutError(self, t, size):
         a = self.lastoutput
-        self.error = self.error + a*(1-a)*(a-t)
+        self.error = self.error + a*(1-a)*(a-t) / size
 
-    def defineHiddenError(self, sum):
+    def defineHiddenError(self, sum, size):
         a = self.lastoutput
-        self.error = self.error = a*(1-a)*sum
+        self.error = self.error + a*(1-a)*sum / size
 
 
